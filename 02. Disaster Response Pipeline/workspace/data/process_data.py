@@ -43,7 +43,7 @@ def clean_data(df):
         # set each value to be the last character of the string  and convert column from string to numeric
         cat_split[col] = cat_split[col].apply(lambda x: str(x)[-1]).astype(int)
         
-    clean_df = pd.concat([df.drop('categories', axis=1, inplace = True), cat_split], axis=1)
+    clean_df = pd.concat([df.drop('categories', axis=1), cat_split], axis=1)
 
     # drop duplicates
     clean_df = clean_df.drop_duplicates().reset_index(drop=True)    
@@ -62,7 +62,7 @@ def save_data(df, database_filename):
     """
 
     #intialize engine
-    engine = create_engine('sqlite://'+database_filename)
+    engine = create_engine('sqlite:///'+database_filename)
     df.to_sql('df', engine, index=False, if_exists = 'replace')
 
 
