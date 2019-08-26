@@ -12,10 +12,10 @@ def load_data(messages_filepath, categories_filepath):
        df(pd.DataFrame)： merge messages and categories
     """
     #Load the messages csv file
-    messages = pd.read_csv(messages_filepath + 'disaster_messages.csv')
+    messages = pd.read_csv(messages_filepath)
 
     #Load the categories csv file
-    categories = pd.read_csv(categories_filepath + 'disaster_categories.csv')
+    categories = pd.read_csv(categories_filepath)
 
     #merging the two datasets
     df = messages.merge(categories, on='id', how='left')
