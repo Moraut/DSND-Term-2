@@ -33,7 +33,7 @@ def clean_data(df):
     """
 
     #split the categories column into individual category columns
-    cat_split = df['categories'].str.split(';', expand)
+    cat_split = df['categories'].str.split(';', expand=True)
 
     # rename the columns of `categories`
     cat_split.columns =  cat_split.iloc[0,:].apply(lambda x: str(x)[:-2])
