@@ -1,5 +1,6 @@
 import sys
 import pandas as pd
+from sqlalchemy import create_engine
 
 def load_data(messages_filepath, categories_filepath):
     """
@@ -8,7 +9,7 @@ def load_data(messages_filepath, categories_filepath):
       messages_filepath(str): messages file path
       categories_filepath(str): categories files path
     Return：
-       df： merge messages and categories
+       df(pd.DataFrame)： merge messages and categories
     """
     #Load the messages csv file
     messages = pd.read_csv(messages_filepath + 'messages.csv')
@@ -16,15 +17,53 @@ def load_data(messages_filepath, categories_filepath):
     #Load the categories csv file
     categories = pd.read_csv(categories_filepath + 'categories.csv')
 
-    return messages.merge(categories, on='id', how='left')
+    #merging the two datasets
+    df = messages.merge(categories, on='id', how='left')
+
+    return df
 
 
 def clean_data(df):
-    pass
+    """
+    Function: clean input dataframe df by creating one hot encoded category columns and removing duplciates 
+    Args：
+      df(pd.DataFrame): merged dataframe (from messages and categories)
+    Return：
+       clean_df(pd.DataFrame)： cleaned dataframe with messages and category columns (1/0)
+    """
 
+    #split the categories column into individual category columns
+    cat_split = df['categories'].str.split(';', expand)
+
+    # rename the columns of `categories`
+    cat_split.columns =  cat_split.iloc[0,:].apply(lambda x: str(x)[:-2])
+
+    # one hot encode the category columns
+    for col in cat_split.columns:
+        # set each value to be the last character of the string  and convert column from string to numeric
+        cat_split[col] = cat_split[col].apply(lambda x: str(x)[-1]).astype(int)
+        
+    clean_df = pd.concat([df.drop('categories', axis=1, inplace = True), cat_split], axis=1)
+
+    # drop duplicates
+    clean_df = clean_df.drop_duplicates().reset_index(drop=True)    
+
+    return clean_df    
 
 def save_data(df, database_filename):
-    pass  
+    
+    """
+    Function: save cleaned dataset into a database
+    Args:
+        df(pd.DataFrame): cleaned dataframe
+        database_filename(str): Database name  
+    Return:
+        NA
+    """
+
+    #intialize engine
+    engine = create_engine('sqlite://'+database_filename)
+    df.to_sql('labeledresponses', engine, index=False, if_exists = 'replace')
 
 
 def main():
