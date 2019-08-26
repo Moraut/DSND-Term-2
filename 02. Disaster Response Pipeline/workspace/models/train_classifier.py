@@ -1,9 +1,11 @@
 import sys
 import pandas as pd
+import numpy as np
 from sqlalchemy import create_engine
 import string
 import nltk
-nltk.download(['punkt','wordnet','averaged_perceptron_tagger'])
+nltk.download(['punkt','wordnet','averaged_perceptron_tagger','stopwords'])
+import pickle
 
 from sklearn.pipeline import Pipeline, FeatureUnion
 
@@ -27,8 +29,8 @@ def load_data(database_filepath):
        Y(pd.DataFrame): Category Flags dataframe 
        category_names: Category column names 
     """
-    engine = create_engine('sqllite:///'+ database_filepath)
-    df = pd.read_sql('df', engine)
+    engine = create_engine('sqlite:///'+ database_filepath)
+    df = pd.read_sql_table('df', engine)
 
     X = df['message']
     Y = df.iloc[:,4:]
@@ -128,7 +130,7 @@ def multioutput_fscore(y_true, y_pred, beta=1):
     """
     scores = []
 
-    if isinstance(y_pred, pd.DatFrame) == True:
+    if isinstance(y_pred, pd.DataFrame) == True:
         y_pred = y_pred.values
     
     if isinstance(y_true, pd.DataFrame) == True:
@@ -139,7 +141,7 @@ def multioutput_fscore(y_true, y_pred, beta=1):
         score = fbeta_score(y_true[:,col], y_pred[:,col], beta, average='weighted')
         scores.append(score)
 
-    f1score_np = np.array(score_list)
+    f1score_np = np.array(scores)
     f1score_np = f1score_np[f1score_np<1]
 
     # Geometric Mean of all the f1score to get a weighted estimate of the overall performance    
@@ -158,7 +160,7 @@ def evaluate_model(model, X_test, Y_test, category_names):
     Args:
         model(scikit pipeline): Model Pipeline
         X_test(pd.DataFrame): Test Features
-        Y_test(pd>DataFrame): Test Messages categories
+        Y_test(pd.DataFrame): Test Messages categories
     Return:
         Prints out model performance:  F1_s 
 
@@ -169,18 +171,20 @@ def evaluate_model(model, X_test, Y_test, category_names):
     multi_f1 = multioutput_fscore(Y_test, y_pred)
     overall_accuracy = (Y_test == y_pred).mean().mean()
 
-    print("Overall acuracy of the model is {0.2f}%\n".format(overall_accuracy*100))
-    print("Custom f1_score of the model is {0.2f}%\n".format(multi_f1*100))
+    print("Overall acuracy of the model is {:.2f}%\n".format(overall_accuracy*100))
+    print("Custom f1_score of the model is {:.2f}%\n".format(multi_f1*100))
 
     # Generate category wise performance
     y_pred_df =  pd.DataFrame(y_pred, columns = Y_test.columns)
 
     for col in y_pred_df.columns:
-        f_score = fbeta_score(Y_test[col],y_pred_df[col],, beta=1.0, average='weighted')
-        accuracy = (Y_test[col],y_pred_df[col]).mean()
-        print("Accuracy for Category || {} :{0.2f%}".format(col, accuracy*100)
-        print("F1 Score for Category || {} :{0.2f%}".format(col, f_score*100))
+        f_score = fbeta_score(Y_test[col],y_pred_df[col], beta=1.0, average='weighted')
+        accuracy = (Y_test[col].values == y_pred_df[col].values).mean()
 
+        print("=====================================================\n")
+        print("Accuracy for Category || {} :{:.2f}".format(col, accuracy*100))
+        print("F1 Score for Category || {} :{:.2f}".format(col, f_score*100))
+        print("=====================================================\n")
 
 def save_model(model, model_filepath):
     """"
