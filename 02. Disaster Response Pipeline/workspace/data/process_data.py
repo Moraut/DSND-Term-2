@@ -1,8 +1,22 @@
 import sys
-
+import pandas as pd
 
 def load_data(messages_filepath, categories_filepath):
-    pass
+    """
+    Function: load data from message and categories csv files and merge them
+    Args：
+      messages_filepath(str): messages file path
+      categories_filepath(str): categories files path
+    Return：
+       df： merge messages and categories
+    """
+    #Load the messages csv file
+    messages = pd.read_csv(messages_filepath + 'messages.csv')
+
+    #Load the categories csv file
+    categories = pd.read_csv(categories_filepath + 'categories.csv')
+
+    return messages.merge(categories, on='id', how='left')
 
 
 def clean_data(df):
