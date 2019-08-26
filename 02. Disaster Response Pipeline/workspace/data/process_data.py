@@ -63,7 +63,7 @@ def save_data(df, database_filename):
 
     #intialize engine
     engine = create_engine('sqlite://'+database_filename)
-    df.to_sql('labeledresponses', engine, index=False, if_exists = 'replace')
+    df.to_sql('df', engine, index=False, if_exists = 'replace')
 
 
 def main():
