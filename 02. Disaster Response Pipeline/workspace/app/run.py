@@ -85,6 +85,7 @@ def index():
     # create visuals
     # TODO: Below is an example - modify to create your own visuals
     graphs = [
+        #Visual 1
         {
             'data': [
                 Bar(
@@ -93,7 +94,19 @@ def index():
                 )
             ],
 
-        
+            'layout': {
+                'title': 'Messages by Genres',
+                'yaxis': {
+                    'title': 'Count'
+                },
+                'xaxis':{
+                    'title': "Genre"
+                }
+            }
+        },
+
+        #Visual 1
+        {       
             'data': [
                 Bar(
                     x=related_names,
@@ -102,12 +115,12 @@ def index():
             ],
 
             'layout': {
-                'title': 'Distribution of Message Genres',
+                'title': 'Related vs Non Related',
                 'yaxis': {
                     'title': "Count"
                 },
                 'xaxis': {
-                    'title': "Genre"
+                    'title': "Related/Non Related"
                 }
             }
         }
