@@ -11,7 +11,7 @@ setwd(dir)
 #####################################
 
 #orders
-orders = read.csv('orders.csv')
+orders = read.csv('../../../../orders.csv')
 head(orders,5)
 
 #products
@@ -23,7 +23,7 @@ op_train = read.csv('order_products__train.csv')
 head(op_train,5)
 
 #order_product_prior
-op_prior = read.csv('order_products__prior.csv')
+op_prior = read.csv('../../../../order_products__prior.csv')
 head(op_prior,5)
 
 #departments
