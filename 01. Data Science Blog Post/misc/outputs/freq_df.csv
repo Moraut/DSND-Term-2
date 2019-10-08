@@ -1,21 +1,21 @@
-itemA,itemB
-Bag of Organic Bananas,Organic Strawberries
-Bag of Organic Bananas,Organic Hass Avocado
-Bag of Organic Bananas,Organic Baby Spinach
-Bag of Organic Bananas,Organic Raspberries
-Banana,Organic Strawberries
-Banana,Organic Baby Spinach
-Banana,Organic Avocado
-Banana,Strawberries
-Banana,Large Lemon
-Banana,Honeycrisp Apple
-Banana,Organic Fuji Apple
-Banana,Organic Hass Avocado
-Banana,Limes
-Banana,Cucumber Kirby
-Organic Avocado,Banana
-Organic Hass Avocado,Organic Strawberries
-Organic Hass Avocado,Organic Baby Spinach
-Organic Hass Avocado,Bag of Organic Bananas
-Organic Strawberries,Organic Baby Spinach
-Organic Strawberries,Bag of Organic Bananas
+itemA,itemB,freqAB
+Bag of Organic Bananas,Organic Strawberries,42306
+Bag of Organic Bananas,Organic Hass Avocado,39222
+Bag of Organic Bananas,Organic Baby Spinach,35211
+Bag of Organic Bananas,Organic Raspberries,26814
+Banana,Organic Strawberries,40166
+Banana,Organic Baby Spinach,37013
+Banana,Organic Avocado,35407
+Banana,Strawberries,30570
+Banana,Large Lemon,30385
+Banana,Honeycrisp Apple,21104
+Banana,Organic Fuji Apple,24730
+Banana,Organic Hass Avocado,21419
+Banana,Limes,22922
+Banana,Cucumber Kirby,22709
+Organic Avocado,Banana,20204
+Organic Hass Avocado,Organic Strawberries,23283
+Organic Hass Avocado,Organic Baby Spinach,21240
+Organic Hass Avocado,Bag of Organic Bananas,25539
+Organic Strawberries,Organic Baby Spinach,20843
+Organic Strawberries,Bag of Organic Bananas,22396
