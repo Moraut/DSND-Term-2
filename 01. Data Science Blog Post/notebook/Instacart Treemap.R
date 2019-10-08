@@ -55,7 +55,7 @@ tmap_1 <- products %>% group_by(department_id, aisle_id) %>%
                     left_join(aisles,by="aisle_id")
 
 #Plot
-png(file="../misc/Department and Aisle by Number of Products.png")
+png(file="../misc/treemap/Department and Aisle by Number of Products.png")
 
 treemap(tmap_1,
         index=c("department","aisle"),
@@ -71,9 +71,6 @@ dev.off()
 
 #Save the plot
 
-
-
-
 #Number of products by department and aisles sized by number of products
 tmap_2<-df_master %>% 
   group_by(product_id) %>% 
@@ -82,12 +79,12 @@ tmap_2<-df_master %>%
   ungroup() %>% 
   group_by(department_id,aisle_id) %>% 
   summarize(sumcount = sum(count)) %>% 
-  left_join(tmp, by = c("department_id", "aisle_id")) %>% 
+  left_join(tmap_1, by = c("department_id", "aisle_id")) %>% 
   mutate(onesize = 1)
 
 
 #Plot
-png(file="../misc/Department and Aisle by Number of Orders.png")
+png(file="../misc/treemap/Department and Aisle by Number of Orders.png")
 treemap(tmap_2,
         index=c("department","aisle"),
         vSize="onesize",vColor="department",
