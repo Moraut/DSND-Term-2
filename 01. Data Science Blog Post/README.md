@@ -11,3 +11,7 @@ The goal of the project is to identifying customer oreding patterns in terms of 
 To walk-thru the full project, check out the notebook.
 
 To read the blog post associated with the article, you can go [here](https://medium.com/@rautmohit08/instacart-market-basket-analysis-what-is-in-your-basket-apart-from-bananas-aae710da40af).
+
+**Note:** 
+A couple of the datasets (orders.csv and order_products__prior.csv can not be added to GIT repo due to large file size
+Users are requested to download this dataset from https://www.kaggle.com/c/instacart-market-basket-analysis/data before running the notebook 
