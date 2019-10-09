@@ -1,0 +1,6 @@
+Blog Post:
+https://medium.com/instacart-market-basket-analysis-what-do-people/instacart-market-basket-analysis-what-is-in-your-basket-apart-from-bananas-aae710da40af?source=friends_link&sk=ca121cc10ed3637aa3a916b183d28d51
+
+Git Repo:
+https://github.com/Moraut/DSND-Term-2
+01. Data Science Blog Post
